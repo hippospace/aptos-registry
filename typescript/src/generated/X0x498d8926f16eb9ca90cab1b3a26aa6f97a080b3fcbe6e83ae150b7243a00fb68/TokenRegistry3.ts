@@ -10,11 +10,12 @@ import { AptosClient } from "aptos";
 import { AptosAccount } from "aptos";
 import { getTypeTagFullname } from "@manahippo/aptos-tsgen";
 import { sendAndWait } from "@manahippo/aptos-tsgen";
+import { buildPayload } from "@manahippo/aptos-tsgen";
 import { AptosVectorU8 } from "@manahippo/aptos-tsgen";
 import * as X0x1 from "../X0x1";
 
 export const moduleAddress = new HexString("0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68");
-export const moduleName = "TokenRegistry2";
+export const moduleName = "TokenRegistry3";
 
 export const E_ADMIN_ONLY: bigInt.BigInteger = bigInt("1");
 export const E_ALREADY_INITIALIZED: bigInt.BigInteger = bigInt("2");
@@ -74,10 +75,10 @@ export class TokenRegistry {
   ];
   static fields: FieldDeclType[] = [
     {name: "admin", typeTag: parseTypeTagOrThrow("address")},
-    {name: "symbol_to_token_info", typeTag: parseTypeTagOrThrow("0x1::Table::Table<0x1::ASCII::String,0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry2::TokenInfo>")},
+    {name: "symbol_to_token_info", typeTag: parseTypeTagOrThrow("0x1::Table::Table<0x1::ASCII::String,0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::TokenInfo>")},
     {name: "type_info_to_symbol", typeTag: parseTypeTagOrThrow("0x1::Table::Table<0x1::TypeInfo::TypeInfo,0x1::ASCII::String>")},
     {name: "symbol_to_list_idx", typeTag: parseTypeTagOrThrow("0x1::Table::Table<0x1::ASCII::String,u64>")},
-    {name: "token_info_list", typeTag: parseTypeTagOrThrow("vector<0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry2::TokenInfo>")}
+    {name: "token_info_list", typeTag: parseTypeTagOrThrow("vector<0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::TokenInfo>")}
   ];
 
   admin: HexString;
@@ -115,7 +116,17 @@ export async function initialize_script(
   return sendAndWait(
     client,
     account,
-    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry2::initialize_script",
+    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::initialize_script",
+    typeParamStrings,
+    []
+  );
+}
+export function build_payload_initialize_script(
+  typeParams: TypeTag[],
+) {
+  const typeParamStrings = typeParams.map(t=>getTypeTagFullname(t));
+  return buildPayload(
+    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::initialize_script",
     typeParamStrings,
     []
   );
@@ -136,7 +147,30 @@ export async function add_token_script(
   return sendAndWait(
     client,
     account,
-    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry2::add_token_script",
+    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::add_token_script",
+    typeParamStrings,
+    [
+      name.hex(),
+      symbol.hex(),
+      description.hex(),
+      decimals,
+      logo_url.hex(),
+      project_url.hex(),
+    ]
+  );
+}
+export function build_payload_add_token_script(
+  name: AptosVectorU8,
+  symbol: AptosVectorU8,
+  description: AptosVectorU8,
+  decimals: number,
+  logo_url: AptosVectorU8,
+  project_url: AptosVectorU8,
+  typeParams: TypeTag[],
+) {
+  const typeParamStrings = typeParams.map(t=>getTypeTagFullname(t));
+  return buildPayload(
+    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::add_token_script",
     typeParamStrings,
     [
       name.hex(),
@@ -159,7 +193,20 @@ export async function delist_token_script(
   return sendAndWait(
     client,
     account,
-    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry2::delist_token_script",
+    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::delist_token_script",
+    typeParamStrings,
+    [
+      symbol.hex(),
+    ]
+  );
+}
+export function build_payload_delist_token_script(
+  symbol: AptosVectorU8,
+  typeParams: TypeTag[],
+) {
+  const typeParamStrings = typeParams.map(t=>getTypeTagFullname(t));
+  return buildPayload(
+    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::delist_token_script",
     typeParamStrings,
     [
       symbol.hex(),
@@ -180,7 +227,26 @@ export async function update_token_info_script(
   return sendAndWait(
     client,
     account,
-    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry2::update_token_info_script",
+    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::update_token_info_script",
+    typeParamStrings,
+    [
+      symbol.hex(),
+      description.hex(),
+      logo_url.hex(),
+      project_url.hex(),
+    ]
+  );
+}
+export function build_payload_update_token_info_script(
+  symbol: AptosVectorU8,
+  description: AptosVectorU8,
+  logo_url: AptosVectorU8,
+  project_url: AptosVectorU8,
+  typeParams: TypeTag[],
+) {
+  const typeParamStrings = typeParams.map(t=>getTypeTagFullname(t));
+  return buildPayload(
+    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::update_token_info_script",
     typeParamStrings,
     [
       symbol.hex(),
@@ -192,6 +258,6 @@ export async function update_token_info_script(
 }
 
 export function loadParsers(repo: AptosParserRepo) {
-  repo.addParser("0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry2::TokenInfo", TokenInfo.TokenInfoParser);
-  repo.addParser("0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry2::TokenRegistry", TokenRegistry.TokenRegistryParser);
+  repo.addParser("0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::TokenInfo", TokenInfo.TokenInfoParser);
+  repo.addParser("0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::TokenRegistry3::TokenRegistry", TokenRegistry.TokenRegistryParser);
 }
