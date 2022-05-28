@@ -1,5 +1,5 @@
 address RegistryAddress{
-module TokenRegistry2 {
+module TokenRegistry3 {
     use AptosFramework::Table;
     use AptosFramework::TypeInfo;
     use Std::ASCII;
@@ -33,6 +33,10 @@ module TokenRegistry2 {
         symbol_to_list_idx: Table::Table<ASCII::String, u64>,
         // for easier lookup of the full list
         token_info_list: vector<TokenInfo>,
+    }
+
+    public fun is_registry_initialized(admin: address): bool {
+        exists<TokenRegistry>(admin)
     }
 
     public fun initialize(admin: &signer) {
@@ -179,7 +183,9 @@ module TokenRegistry2 {
 
     #[test(admin=@0x1234)]
     fun test_initialize(admin: &signer){
+        assert!(!is_registry_initialized(Signer::address_of(admin)), 5);
         initialize(admin);
+        assert!(is_registry_initialized(Signer::address_of(admin)), 5);
     }
 
     #[test(admin=@0x1234)]
