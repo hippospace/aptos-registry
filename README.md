@@ -15,6 +15,24 @@ struct TokenInfo has store, drop, copy {
 }
 ```
 
+This is what the registry looks like right now:
+
+```move
+struct TokenRegistry has key {
+    admin: address,
+    // for easier lookup of individual TokenInfo
+    symbol_to_token_info: Table::Table<ASCII::String, TokenInfo>,
+    // for checking TypeInfo doesn't already exist in our type
+    type_info_to_symbol: Table::Table<TypeInfo::TypeInfo, ASCII::String>,
+    // for faster edits
+    symbol_to_list_idx: Table::Table<ASCII::String, u64>,
+    // for easier lookup of the full list
+    token_info_list: vector<TokenInfo>,
+}
+```
+
+`token_info_list` has the full list.
+
 All tracked tokens need to have unique `symbol` and `token_type`.
 
 Tokens can be delisted via `delist_token` and modified via `update_token_info`. 
