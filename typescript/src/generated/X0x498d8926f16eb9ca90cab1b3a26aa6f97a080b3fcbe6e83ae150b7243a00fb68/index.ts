@@ -1,0 +1,1 @@
+export * as TokenRegistry2 from "./TokenRegistry2";

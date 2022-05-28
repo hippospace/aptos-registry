@@ -1,0 +1,27 @@
+{
+  "name": "@manahippo/aptos-registry",
+  "version": "0.0.1",
+  "description": "Generic registry that maintains a list of objects",
+  "main": "index.js",
+  "repository": "https://github.com/hippospace/aptos-registry",
+  "author": "Hippo team",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm dist -rf; tsc -p tsconfig.json",
+    "generate": "rm src/generated -rf; aptos-tsgen src/generated ../move/build/TokenRegistry/json"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.35",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.2",
+    "typescript": "^4.7.2"
+  },
+  "dependencies": {
+    "@manahippo/aptos-tsgen": "^0.0.28",
+    "aptos": "^0.0.20"
+  }
+}
