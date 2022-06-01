@@ -1,5 +1,5 @@
-address RegistryAddress{
-module TokenRegistry3 {
+address TokenRegistry {
+module TokenRegistry4 {
     use AptosFramework::Table;
     use AptosFramework::TypeInfo;
     use Std::ASCII;

@@ -21,7 +21,7 @@
     "typescript": "^4.7.2"
   },
   "dependencies": {
-    "@manahippo/aptos-tsgen": "^0.0.32",
+    "@manahippo/aptos-tsgen": "^0.0.33",
     "aptos": "^0.0.20"
   }
 }
