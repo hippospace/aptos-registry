@@ -15,7 +15,7 @@ import { AptosVectorU8 } from "@manahippo/aptos-tsgen";
 import * as X0x1 from "../X0x1";
 
 export const moduleAddress = new HexString("0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790");
-export const moduleName = "TokenRegistry4";
+export const moduleName = "TokenRegistry";
 
 export const E_ADMIN_ONLY: bigInt.BigInteger = bigInt("1");
 export const E_ALREADY_INITIALIZED: bigInt.BigInteger = bigInt("2");
@@ -75,10 +75,10 @@ export class TokenRegistry {
   ];
   static fields: FieldDeclType[] = [
     {name: "admin", typeTag: parseTypeTagOrThrow("address")},
-    {name: "symbol_to_token_info", typeTag: parseTypeTagOrThrow("0x1::Table::Table<0x1::ASCII::String,0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::TokenInfo>")},
+    {name: "symbol_to_token_info", typeTag: parseTypeTagOrThrow("0x1::Table::Table<0x1::ASCII::String,0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::TokenInfo>")},
     {name: "type_info_to_symbol", typeTag: parseTypeTagOrThrow("0x1::Table::Table<0x1::TypeInfo::TypeInfo,0x1::ASCII::String>")},
     {name: "symbol_to_list_idx", typeTag: parseTypeTagOrThrow("0x1::Table::Table<0x1::ASCII::String,u64>")},
-    {name: "token_info_list", typeTag: parseTypeTagOrThrow("vector<0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::TokenInfo>")}
+    {name: "token_info_list", typeTag: parseTypeTagOrThrow("vector<0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::TokenInfo>")}
   ];
 
   admin: HexString;
@@ -116,7 +116,7 @@ export async function initialize_script(
   return sendAndWait(
     client,
     account,
-    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::initialize_script",
+    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::initialize_script",
     typeParamStrings,
     []
   );
@@ -126,7 +126,7 @@ export function build_payload_initialize_script(
 ) {
   const typeParamStrings = typeParams.map(t=>getTypeTagFullname(t));
   return buildPayload(
-    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::initialize_script",
+    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::initialize_script",
     typeParamStrings,
     []
   );
@@ -147,7 +147,7 @@ export async function add_token_script(
   return sendAndWait(
     client,
     account,
-    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::add_token_script",
+    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::add_token_script",
     typeParamStrings,
     [
       name.hex(),
@@ -170,7 +170,7 @@ export function build_payload_add_token_script(
 ) {
   const typeParamStrings = typeParams.map(t=>getTypeTagFullname(t));
   return buildPayload(
-    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::add_token_script",
+    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::add_token_script",
     typeParamStrings,
     [
       name.hex(),
@@ -193,7 +193,7 @@ export async function delist_token_script(
   return sendAndWait(
     client,
     account,
-    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::delist_token_script",
+    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::delist_token_script",
     typeParamStrings,
     [
       symbol.hex(),
@@ -206,7 +206,7 @@ export function build_payload_delist_token_script(
 ) {
   const typeParamStrings = typeParams.map(t=>getTypeTagFullname(t));
   return buildPayload(
-    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::delist_token_script",
+    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::delist_token_script",
     typeParamStrings,
     [
       symbol.hex(),
@@ -227,7 +227,7 @@ export async function update_token_info_script(
   return sendAndWait(
     client,
     account,
-    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::update_token_info_script",
+    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::update_token_info_script",
     typeParamStrings,
     [
       symbol.hex(),
@@ -246,7 +246,7 @@ export function build_payload_update_token_info_script(
 ) {
   const typeParamStrings = typeParams.map(t=>getTypeTagFullname(t));
   return buildPayload(
-    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::update_token_info_script",
+    "0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::update_token_info_script",
     typeParamStrings,
     [
       symbol.hex(),
@@ -258,6 +258,6 @@ export function build_payload_update_token_info_script(
 }
 
 export function loadParsers(repo: AptosParserRepo) {
-  repo.addParser("0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::TokenInfo", TokenInfo.TokenInfoParser);
-  repo.addParser("0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry4::TokenRegistry", TokenRegistry.TokenRegistryParser);
+  repo.addParser("0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::TokenInfo", TokenInfo.TokenInfoParser);
+  repo.addParser("0x49c5e3ec5041062f02a352e4a2d03ce2bb820d94e8ca736b08a324f8dc634790::TokenRegistry::TokenRegistry", TokenRegistry.TokenRegistryParser);
 }

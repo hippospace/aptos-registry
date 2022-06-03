@@ -1,5 +1,5 @@
 address TokenRegistry {
-module TokenRegistry4 {
+module TokenRegistry {
     use AptosFramework::Table;
     use AptosFramework::TypeInfo;
     use Std::ASCII;
@@ -58,7 +58,7 @@ module TokenRegistry4 {
     public fun has_token<TokenType>(admin: address): bool acquires TokenRegistry{
         let registry = borrow_global<TokenRegistry>(admin);
         let type_info = TypeInfo::type_of<TokenType>();
-        Table::contains(&registry.type_info_to_symbol, &type_info)
+        Table::contains(&registry.type_info_to_symbol, type_info)
     }
 
     public fun add_token<TokenType>(
@@ -84,16 +84,16 @@ module TokenRegistry4 {
             token_type: type_info,
         };
 
-        assert!(!Table::contains(&registry.symbol_to_token_info, &token_info.symbol), E_SYMBOL_ALREADY_EXISTS);
-        assert!(!Table::contains(&registry.type_info_to_symbol, &type_info), E_TYPE_ALREADY_EXISTS);
+        assert!(!Table::contains(&registry.symbol_to_token_info, token_info.symbol), E_SYMBOL_ALREADY_EXISTS);
+        assert!(!Table::contains(&registry.type_info_to_symbol, type_info), E_TYPE_ALREADY_EXISTS);
         // add it to table
-        Table::add(&mut registry.symbol_to_token_info, &token_info.symbol, token_info);
-        Table::add(&mut registry.type_info_to_symbol, &type_info, token_info.symbol);
+        Table::add(&mut registry.symbol_to_token_info, token_info.symbol, token_info);
+        Table::add(&mut registry.type_info_to_symbol, type_info, token_info.symbol);
         // add it to the list
         let index = Vector::length(&registry.token_info_list);
         Vector::push_back(&mut registry.token_info_list, token_info);
         // record index
-        Table::add(&mut registry.symbol_to_list_idx, &token_info.symbol, index);
+        Table::add(&mut registry.symbol_to_list_idx, token_info.symbol, index);
     }
 
     public(script) fun add_token_script<TokenType>(
@@ -120,15 +120,15 @@ module TokenRegistry4 {
         let admin_addr = Signer::address_of(admin);
         let registry = borrow_global_mut<TokenRegistry>(admin_addr);
         let symbol_str = ASCII::string(symbol);
-        assert!(Table::contains(&registry.symbol_to_token_info, &symbol_str), E_SYMBOL_DOES_NOT_EXIST);
-        let index = *Table::borrow(&registry.symbol_to_list_idx, &symbol_str);
-        let type_info = Table::borrow(&registry.symbol_to_token_info, &symbol_str).token_type;
+        assert!(Table::contains(&registry.symbol_to_token_info, symbol_str), E_SYMBOL_DOES_NOT_EXIST);
+        let index = *Table::borrow(&registry.symbol_to_list_idx, symbol_str);
+        let type_info = Table::borrow(&registry.symbol_to_token_info, symbol_str).token_type;
         // mark as delisted
         Vector::borrow_mut(&mut registry.token_info_list, index).delisted = true;
         // delete from tables
-        Table::remove(&mut registry.symbol_to_list_idx, &symbol_str);
-        Table::remove(&mut registry.symbol_to_token_info, &symbol_str);
-        Table::remove(&mut registry.type_info_to_symbol, &type_info);
+        Table::remove(&mut registry.symbol_to_list_idx, symbol_str);
+        Table::remove(&mut registry.symbol_to_token_info, symbol_str);
+        Table::remove(&mut registry.type_info_to_symbol, type_info);
     }
 
     public(script) fun delist_token_script(admin: &signer, symbol: vector<u8>) acquires  TokenRegistry {
@@ -145,15 +145,15 @@ module TokenRegistry4 {
         let admin_addr = Signer::address_of(admin);
         let registry = borrow_global_mut<TokenRegistry>(admin_addr);
         let symbol_str = ASCII::string(symbol);
-        assert!(Table::contains(&registry.symbol_to_token_info, &symbol_str), E_SYMBOL_DOES_NOT_EXIST);
-        let index = *Table::borrow(&registry.symbol_to_list_idx, &symbol_str);
+        assert!(Table::contains(&registry.symbol_to_token_info, symbol_str), E_SYMBOL_DOES_NOT_EXIST);
+        let index = *Table::borrow(&registry.symbol_to_list_idx, symbol_str);
         // update table
         let list_token_info = Vector::borrow_mut(&mut registry.token_info_list, index);
         list_token_info.description = ASCII::string(description);
         list_token_info.logo_url = ASCII::string(logo_url);
         list_token_info.project_url = ASCII::string(project_url);
         // update list
-        let table_token_info = Table::borrow_mut(&mut registry.symbol_to_token_info, &symbol_str);
+        let table_token_info = Table::borrow_mut(&mut registry.symbol_to_token_info, symbol_str);
         table_token_info.description = ASCII::string(description);
         table_token_info.logo_url = ASCII::string(logo_url);
         table_token_info.project_url = ASCII::string(project_url);
@@ -213,7 +213,7 @@ module TokenRegistry4 {
         );
         let registry = borrow_global<TokenRegistry>(Signer::address_of(admin));
         let key = ASCII::string(symbol);
-        let token_info = Table::borrow(&registry.symbol_to_token_info, &key);
+        let token_info = Table::borrow(&registry.symbol_to_token_info, key);
         assert!(token_info.name == ASCII::string(name), 5);
         assert!(token_info.description == ASCII::string(description), 5);
         assert!(token_info.logo_url == ASCII::string(logo), 5);
@@ -284,7 +284,7 @@ module TokenRegistry4 {
         );
         let registry = borrow_global<TokenRegistry>(Signer::address_of(admin));
         let key = ASCII::string(b"BTC");
-        let token_info = Table::borrow(&registry.symbol_to_token_info, &key);
+        let token_info = Table::borrow(&registry.symbol_to_token_info, key);
         assert!(token_info.project_url == ASCII::string(project), 5);
         assert!(token_info.description == ASCII::string(description), 5);
         assert!(token_info.logo_url == ASCII::string(logo), 5);

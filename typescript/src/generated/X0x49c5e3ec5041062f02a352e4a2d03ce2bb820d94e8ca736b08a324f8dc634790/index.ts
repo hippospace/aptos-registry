@@ -1,1 +1,1 @@
-export * as TokenRegistry4 from "./TokenRegistry4";
+export * as TokenRegistry from "./TokenRegistry";
