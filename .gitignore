@@ -1,0 +1,5 @@
+.aptos
+.idea
+.coverage*
+build
+.trace
