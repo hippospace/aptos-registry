@@ -3,7 +3,7 @@ name = "TokenRegistry"
 version = "0.0.2"
 
 [dependencies]
-AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework/", rev = "49f08c7419b442461e47164848305fe74e846607" }
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework/", rev = "45140fcf79c2afd3ce8c86bb9952e90632533cbb" }
 
 [addresses]
 TokenRegistry = "f70ac33c984f8b7bead655ad239d246f1c0e3ca55fe0b8bfc119aa529c4630e8"
