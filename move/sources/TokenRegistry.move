@@ -1,10 +1,10 @@
 address token_registry {
 module token_registry {
-    use AptosFramework::table;
-    use AptosFramework::type_info;
-    use Std::string;
-    use Std::signer;
-    use Std::vector;
+    use aptos_framework::table;
+    use aptos_framework::type_info;
+    use std::string;
+    use std::signer;
+    use std::vector;
 
     const E_ADMIN_ONLY: u64 = 1;
     const E_ALREADY_INITIALIZED: u64 = 2;
