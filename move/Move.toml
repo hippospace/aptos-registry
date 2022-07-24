@@ -6,6 +6,6 @@ version = "0.0.2"
 AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework/", rev = "a3143756d498821f4f51a5970c7ea35d483938b3" }
 
 [addresses]
-token_registry = "f70ac33c984f8b7bead655ad239d246f1c0e3ca55fe0b8bfc119aa529c4630e8"
+token_registry = "a61e1e86e9f596e483283727d2739ba24b919012720648c29380f9cd0a96c11a"
 
 
