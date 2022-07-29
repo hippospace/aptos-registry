@@ -1,5 +1,5 @@
-address token_registry {
-module token_registry {
+address coin_registry {
+module coin_registry {
     use aptos_std::table;
     use aptos_std::type_info;
     use std::string;

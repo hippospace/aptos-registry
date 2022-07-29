@@ -5,7 +5,7 @@ import { Command } from "commander";
 import { getProjectRepo } from "./";
 import * as fs from "fs";
 import * as yaml from "yaml";
-import * as token_registry$_ from './token_registry';
+import * as coin_registry$_ from './coin_registry';
 
 export const readConfig = (program: Command) => {
   const {config, profile} = program.opts();
@@ -56,7 +56,7 @@ program
   .option('-p, --profile <PROFILE>', 'aptos config profile to use', 'default')
 
 
-const token_registry_add_token_script = async (TokenType: string, name: string, symbol: string, description: string, decimals: string, logo_url: string, project_url: string) => {
+const coin_registry_add_token_script = async (TokenType: string, name: string, symbol: string, description: string, decimals: string, logo_url: string, project_url: string) => {
   const {client, account} = readConfig(program);
   const TokenType_ = parseTypeTagOrThrow(TokenType);
   const name_ = strToU8(name);
@@ -65,12 +65,12 @@ const token_registry_add_token_script = async (TokenType: string, name: string, 
   const decimals_ = u8(decimals);
   const logo_url_ = strToU8(logo_url);
   const project_url_ = strToU8(project_url);
-  const payload = token_registry$_.token_registry$_.buildPayload_add_token_script(name_, symbol_, description_, decimals_, logo_url_, project_url_, [TokenType_]);
+  const payload = coin_registry$_.coin_registry$_.buildPayload_add_token_script(name_, symbol_, description_, decimals_, logo_url_, project_url_, [TokenType_]);
   await sendPayloadTx(client, account, payload);
 }
 
 program
-  .command("token_registry:add-token-script")
+  .command("coin_registry:add-token-script")
   .description("Add new token into registry")
   .argument('<TYPE_TokenType>')
   .argument('<name>')
@@ -79,55 +79,55 @@ program
   .argument('<decimals>')
   .argument('<logo_url>')
   .argument('<project_url>')
-  .action(token_registry_add_token_script);
+  .action(coin_registry_add_token_script);
 
 
-const token_registry_delist_token_script = async (symbol: string) => {
+const coin_registry_delist_token_script = async (symbol: string) => {
   const {client, account} = readConfig(program);
   const symbol_ = strToU8(symbol);
-  const payload = token_registry$_.token_registry$_.buildPayload_delist_token_script(symbol_);
+  const payload = coin_registry$_.coin_registry$_.buildPayload_delist_token_script(symbol_);
   await sendPayloadTx(client, account, payload);
 }
 
 program
-  .command("token_registry:delist-token-script")
+  .command("coin_registry:delist-token-script")
   .description("Delist token")
   .argument('<symbol>')
-  .action(token_registry_delist_token_script);
+  .action(coin_registry_delist_token_script);
 
 
-const token_registry_initialize_script = async () => {
+const coin_registry_initialize_script = async () => {
   const {client, account} = readConfig(program);
 
-  const payload = token_registry$_.token_registry$_.buildPayload_initialize_script();
+  const payload = coin_registry$_.coin_registry$_.buildPayload_initialize_script();
   await sendPayloadTx(client, account, payload);
 }
 
 program
-  .command("token_registry:initialize-script")
+  .command("coin_registry:initialize-script")
   .description("Create token registry for signer")
 
-  .action(token_registry_initialize_script);
+  .action(coin_registry_initialize_script);
 
 
-const token_registry_update_token_info_script = async (symbol: string, description: string, logo_url: string, project_url: string) => {
+const coin_registry_update_token_info_script = async (symbol: string, description: string, logo_url: string, project_url: string) => {
   const {client, account} = readConfig(program);
   const symbol_ = strToU8(symbol);
   const description_ = strToU8(description);
   const logo_url_ = strToU8(logo_url);
   const project_url_ = strToU8(project_url);
-  const payload = token_registry$_.token_registry$_.buildPayload_update_token_info_script(symbol_, description_, logo_url_, project_url_);
+  const payload = coin_registry$_.coin_registry$_.buildPayload_update_token_info_script(symbol_, description_, logo_url_, project_url_);
   await sendPayloadTx(client, account, payload);
 }
 
 program
-  .command("token_registry:update-token-info-script")
+  .command("coin_registry:update-token-info-script")
   .description("Update registry info of existing token")
   .argument('<symbol>')
   .argument('<description>')
   .argument('<logo_url>')
   .argument('<project_url>')
-  .action(token_registry_update_token_info_script);
+  .action(coin_registry_update_token_info_script);
 
 
 

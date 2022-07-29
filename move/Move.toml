@@ -1,11 +1,11 @@
 [package]
-name = "TokenRegistry"
+name = "CoinRegistry"
 version = "0.0.2"
 
 [dependencies]
 AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework/", rev = "7296f138e11113fab6a1e193fc3f18fa7d08bd3e" }
 
 [addresses]
-token_registry = "a61e1e86e9f596e483283727d2739ba24b919012720648c29380f9cd0a96c11a"
+coin_registry = "a61e1e86e9f596e483283727d2739ba24b919012720648c29380f9cd0a96c11a"
 
 
