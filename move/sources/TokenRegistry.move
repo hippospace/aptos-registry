@@ -1,7 +1,7 @@
 address token_registry {
 module token_registry {
-    use aptos_framework::table;
-    use aptos_framework::type_info;
+    use aptos_std::table;
+    use aptos_std::type_info;
     use std::string;
     use std::signer;
     use std::vector;
@@ -51,6 +51,7 @@ module token_registry {
         });
     }
 
+    #[cmd(desc=b"Create token registry for signer")]
     public entry fun initialize_script(admin: &signer) {
         initialize(admin);
     }
@@ -96,6 +97,7 @@ module token_registry {
         table::add(&mut registry.symbol_to_list_idx, token_info.symbol, index);
     }
 
+    #[cmd(desc=b"Add new token into registry")]
     public entry fun add_token_script<TokenType>(
         admin: &signer,
         name: vector<u8>,
@@ -131,6 +133,7 @@ module token_registry {
         table::remove(&mut registry.type_info_to_symbol, type_info);
     }
 
+    #[cmd(desc=b"Delist token")]
     public entry fun delist_token_script(admin: &signer, symbol: vector<u8>) acquires  TokenRegistry {
         delist_token(admin, symbol);
     }
@@ -159,6 +162,7 @@ module token_registry {
         table_token_info.project_url = string::utf8(project_url);
     }
 
+    #[cmd(desc=b"Update registry info of existing token")]
     public entry fun update_token_info_script(
         admin: &signer,
         symbol: vector<u8>,

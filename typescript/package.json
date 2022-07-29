@@ -1,27 +1,35 @@
+
 {
-  "name": "@manahippo/aptos-registry",
+  "name": "token-registry",
   "version": "0.0.1",
-  "description": "Generic registry that maintains a list of objects",
-  "main": "index.js",
-  "repository": "https://github.com/hippospace/aptos-registry",
-  "author": "Hippo team",
-  "license": "MIT",
   "scripts": {
-    "build": "rm dist -rf; tsc -p tsconfig.json",
-    "generate": "rm src/generated -rf; aptos-tsgen src/generated ../move/build/TokenRegistry/json"
+    "build": "rm -rf dist; tsc -p tsconfig.json",
+    "cli": "node dist/cli.js",
+
+    "test": "jest"
   },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [ "src", "dist" ],
   "devDependencies": {
-    "@types/node": "^17.0.35",
-    "@typescript-eslint/eslint-plugin": "^5.26.0",
-    "@typescript-eslint/parser": "^5.26.0",
-    "eslint": "^8.16.0",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.31",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/parser": "^5.22.0",
+    "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.5.1",
     "prettier": "^2.6.2",
-    "typescript": "^4.7.2"
+    "ts-jest": "^27.1.4",
+    "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@manahippo/aptos-tsgen": "^0.0.34",
-    "aptos": "^0.0.20"
+    "aptos": "^1.2.0",
+    "big-integer": "^1.6.51",
+    "commander": "^9.3.0",
+    "yaml": "^2.1.1",
+
+    "@manahippo/move-to-ts": "^0.0.60"
   }
 }
